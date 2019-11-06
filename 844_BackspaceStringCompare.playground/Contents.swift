@@ -1,5 +1,9 @@
 
 /// 解法1
+/// 思路：
+/// 先转数组，遍历数组
+/// 找到`#`，就删除`#`，如果前面有元素就删除，没有就不用删除
+/// 最后合成字符串，对比
 class Solution {
     func backspaceCompare(_ S: String, _ T: String) -> Bool {
         let sFinalString = deleteCharater(string: S)
