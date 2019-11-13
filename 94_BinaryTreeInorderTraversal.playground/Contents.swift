@@ -7,22 +7,31 @@ public class TreeNode {
          self.left = nil
          self.right = nil
      }
-    
-    class func arraryToTree(arr: [Int?], index: Int) -> TreeNode? {
-        var node:TreeNode? = nil
-        var currentIndex = index
-        if currentIndex < arr.count && arr[currentIndex] != -1 {
-            if let item = arr[currentIndex] {
-                node = TreeNode.init(item)
-                currentIndex = currentIndex + 1
-                node?.left = arraryToTree(arr: arr, index: currentIndex)
-                currentIndex = currentIndex + 1
-                node?.right = arraryToTree(arr: arr, index: currentIndex)
-            }else{
-                node = nil
-            }
+    // 层序遍历创建二叉树
+    class func arraryToTree(arr: [Int?],len: Int, index: Int) -> TreeNode? {
+
+        if index > len - 1 {
+            return nil
         }
-        return node
+        print("index - \(index)")
+        if let item = arr[index] {
+            print("item \(item)")
+            let node = TreeNode.init(item)
+            node.left = arraryToTree(arr: arr, len: len, index: index + 1)
+            node.right = arraryToTree(arr: arr, len: len, index: index + 2)
+            return node
+        }else{
+            return nil
+        }
+    }
+
+    class func printNode(node: TreeNode?) {
+        if node == nil {
+            return
+        }
+        print("\(node!.val)")
+        printNode(node: node!.left)
+        printNode(node: node!.right)
     }
 }
 
@@ -46,6 +55,9 @@ class Solution {
 }
 
 let so = Solution()
-let node = TreeNode.arraryToTree(arr: [1,nil,2,3,6,9,0], index: 0)
+let arr = [1,nil,9,2,3]
+let node = TreeNode.arraryToTree(arr: arr,len: arr.count,index: 0)
+TreeNode.printNode(node: node)
+
 so.inorderTraversal(node)
 
